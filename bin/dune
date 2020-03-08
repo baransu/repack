@@ -1,0 +1,5 @@
+(executable (name repack_app) (modules (:standard)) (public_name repack.exe)
+    (libraries flow_parser base cmdliner lwt.unix console.lib pastel.lib fp
+        repack.lib)
+    (flags -open Base))
+(include_subdirs unqualified)

@@ -1,0 +1,118 @@
+{
+  "name": "repack",
+  "version": "0.1.0",
+  "description": "",
+  "author": "baransu",
+  "license": "MIT",
+  "homepage": "https://github.com/baransu/repack",
+  "bugs": {
+    "url": "https://github.com/baransu/repack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baransu/repack.git"
+  },
+  "esy": {
+    "build": "dune build -p #{self.name}",
+    "buildDev": "refmterr dune build -p #{self.name}",
+    "buildEnv": {
+      "ODOC_SYNTAX": "re"
+    }
+  },
+  "buildDirs": {
+    "test": {
+      "require": [
+        "lwt.unix",
+        "rely.lib",
+        "repack.lib"
+      ],
+      "flags": [
+        "-open",
+        "Base",
+        "-linkall",
+        "-g",
+        "-w",
+        "-9"
+      ],
+      "includeSubdirs": "unqualified",
+      "name": "repack.test",
+      "namespace": "Repack_test"
+    },
+    "test_runner": {
+      "require": [
+        "repack.test"
+      ],
+      "bin": {
+        "test-runner.exe": "test_runner_app.re"
+      }
+    },
+    "lib": {
+      "require": [
+        "base",
+        "console.lib",
+        "pastel.lib"
+      ],
+      "flags": [
+        "-open",
+        "Base"
+      ],
+      "includeSubdirs": "unqualified",
+      "name": "repack.lib",
+      "namespace": "Repack"
+    },
+    "bin": {
+      "require": [
+        "flow_parser",
+        "base",
+        "cmdliner",
+        "lwt.unix",
+        "console.lib",
+        "pastel.lib",
+        "fp",
+        "repack.lib"
+      ],
+      "flags": [
+        "-open",
+        "Base"
+      ],
+      "bin": {
+        "repack.exe": "repack_app.re"
+      },
+      "includeSubdirs": "unqualified"
+    }
+  },
+  "scripts": {
+    "start": "esy x repack.exe",
+    "test": "esy x test-runner.exe",
+    "doc": "esy dune build @doc",
+    "doc-path": "esy echo #{self.target_dir}/default/_doc/_html/index.html",
+    "format": "esy dune build @fmt --auto-promote",
+    "watch": "esy dune build -p #{self.name} --watch",
+    "utop": "esy dune utop lib -- -implicit-bindings"
+  },
+  "dependencies": {
+    "@baransu/flow_parser": "*",
+    "@esy-ocaml/reason": "*",
+    "@opam/base": "v0.13.0",
+    "@opam/cmdliner": "*",
+    "@opam/lwt": "*",
+    "@reason-native/console": "*",
+    "@reason-native/pastel": "*",
+    "@reason-native/rely": "*",
+    "@reason-native/fp": "*",
+    "ocaml": ">= 4.7.1"
+  },
+  "devDependencies": {
+    "@opam/dune": "*",
+    "@opam/merlin": "*",
+    "@opam/odoc": "*",
+    "@opam/utop": "*",
+    "@pesy/esy-pesy": "0.1.0-alpha.5",
+    "ocaml": "~4.7.0",
+    "refmterr": "*"
+  },
+  "resolutions": {
+    "@baransu/flow_parser": "baransu/flow_parser:package.json#059f562",
+    "@reason-native/fp": "facebookexperimental/reason-native:fp.json#a7bb635"
+  }
+}

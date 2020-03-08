@@ -1,0 +1,3 @@
+(library (name Repack) (public_name repack.lib) (modules (:standard))
+    (libraries base console.lib pastel.lib) (flags -open Base))
+(include_subdirs unqualified)
